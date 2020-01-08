@@ -1,0 +1,12 @@
+image: "ruby:2.6.0"
+
+stages:
+  - analysis
+
+sonar:
+  image: gitlab.builder.ai:5000/clientprojects/ongoing/heerio/heerio_backend:sonar
+  stage: analysis
+  before_script:
+    - echo "Beginning analysis"
+  script:
+    - sonar-scanner -Dsonar.host.url=https://code-analyzer.engineer.ai -Dsonar.projectName=$CI_PROJECT_PATH -Dsonar.projectKey=$CI_PROJECT_NAME:$CI_PROJECT_ID -Dsonar.branch.name=$CI_COMMIT_REF_NAME -Dsonar.branch.target=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME -Dsonar.projectVersion=1.0 -Dsonar.sources=. -Dsonar.gitlab.project_id=$CI_PROJECT_ID -Dsonar.login=$SONAR_LOGIN

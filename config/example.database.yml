@@ -1,0 +1,26 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+
+
+development:
+  <<: *default
+  database: <%= ENV['DB_DATABASE'] %>
+
+test:
+  <<: *default
+  database: heerio_backend_test
+
+
+staging:
+  <<: *default
+  database: heerio_backend_staging
+
+production:
+<<: *default
+database: heerio_backend_production
+username: #pm_dashboard
+password: #<%= ENV['PM_DASHBOARD_DATABASE_PASSWORD'] %>
